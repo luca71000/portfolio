@@ -1,0 +1,2307 @@
+﻿<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luca Ponceblanc | Portfolio BTS SIO SISR</title>
+  <meta name="description" content="Portfolio de Luca Ponceblanc, étudiant en 2ème année de BTS SIO option SISR au Lycée Lamartine (Mâcon).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+/* ===================================================================
+   PORTFOLIO BTS SIO SISR - STYLESHEET
+   Auteur : Luca
+   Option : SISR (Systèmes & Réseaux)
+   =================================================================== */
+
+/* --- Variables & Thèmes --- */
+:root {
+  /* Polices */
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+
+  /* Thème Sombre (Par Défaut) */
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: rgba(22, 30, 46, 0.85);
+  --bg-card-hover: rgba(30, 41, 63, 0.95);
+  --bg-input: #0f172a;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: #38bdf8;
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --accent: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.25);
+  --accent-green: #10b981;
+  --accent-purple: #818cf8;
+  --accent-orange: #f59e0b;
+
+  --terminal-bg: #090d16;
+  --terminal-bar: #161f30;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --bg-input: #f8fafc;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-focus: #0284c7;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+
+  --accent: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.15);
+  --accent-green: #059669;
+  --accent-purple: #6366f1;
+
+  --terminal-bg: #1e293b;
+  --terminal-bar: #0f172a;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Typographie & Utilitaires */
+h1, h2, h3, h4, h5 {
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: none;
+  filter: brightness(1.2);
+}
+
+ul {
+  list-style: none;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+/* --- Header & Navigation --- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(10, 14, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+[data-theme="light"] .header {
+  background-color: rgba(248, 250, 252, 0.9);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.logo-terminal {
+  font-family: var(--font-mono);
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  position: relative;
+  padding: 0.3rem 0;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width var(--transition-fast);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.theme-toggle,
+.menu-toggle {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover,
+.menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+/* --- Boutons Communs --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #051329;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* --- Hero Section --- */
+.hero {
+  min-height: 90vh;
+  padding-top: 130px;
+  padding-bottom: 60px;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle at 15% 30%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at 85% 70%, rgba(129, 140, 248, 0.08) 0%, transparent 40%);
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.hero-title {
+  font-size: 3rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.2rem;
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  max-width: 540px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.hero-highlights {
+  display: flex;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-number {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.highlight-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Terminal Hero */
+.hero-terminal {
+  background-color: var(--terminal-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+
+.terminal-bar {
+  background-color: var(--terminal-bar);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-buttons {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #10b981; }
+
+.terminal-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.terminal-body {
+  padding: 1.4rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.term-line {
+  margin-top: 0.5rem;
+}
+
+.term-prompt {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.term-output {
+  color: var(--text-secondary);
+  padding-left: 0.5rem;
+}
+
+.term-list {
+  margin: 0.5rem 0 0.5rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.term-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+}
+
+.term-ok {
+  color: var(--accent-green);
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- Sections Communes --- */
+.section {
+  padding: 90px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3.5rem auto;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.2rem 0.8rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.01em;
+}
+
+.section-description {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+/* --- À Propos --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.about-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  transition: all var(--transition-smooth);
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+.about-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.about-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+.interests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.interests-list li i {
+  color: var(--accent);
+  margin-right: 0.5rem;
+  width: 18px;
+}
+
+/* --- BTS SIO Section --- */
+.sio-cards {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.sio-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  position: relative;
+  transition: all var(--transition-smooth);
+}
+
+.sio-card.active-option {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.05) 0%, var(--bg-card) 100%);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.06);
+}
+
+.sio-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+}
+
+.sio-badge.other {
+  background: rgba(100, 116, 139, 0.15);
+  color: var(--text-muted);
+  border-color: var(--border-color);
+}
+
+.sio-icon {
+  font-size: 2.2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.other-option .sio-icon {
+  color: var(--text-muted);
+}
+
+.sio-card h3 {
+  font-size: 1.6rem;
+}
+
+.sio-subtitle {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.other-option .sio-subtitle {
+  color: var(--text-secondary);
+}
+
+.sio-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.sio-features {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.sio-features li i {
+  color: var(--accent-green);
+  margin-right: 0.6rem;
+}
+
+/* Référentiel Box */
+.referentiel-box {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+}
+
+.referentiel-title {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-primary);
+}
+
+.referentiel-title i {
+  color: var(--accent);
+}
+
+.referentiel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.bloc-card {
+  background-color: var(--bg-card);
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.bloc-id {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+
+.bloc-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.bloc-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* --- Compétences --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.skill-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  transition: all var(--transition-smooth);
+}
+
+.skill-group:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: var(--shadow-sm);
+}
+
+.skill-group-header {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.skill-group-header i {
+  font-size: 1.4rem;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.7rem;
+  border-radius: var(--radius-sm);
+}
+
+.skill-group-header h3 {
+  font-size: 1.25rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.45rem 0.9rem;
+  border-radius: 9999px;
+  transition: all var(--transition-fast);
+}
+
+.skill-tag i {
+  color: var(--accent);
+}
+
+.skill-tag:hover {
+  border-color: var(--accent);
+  background-color: rgba(56, 189, 248, 0.08);
+  transform: translateY(-2px);
+}
+
+/* --- Projets & Labs --- */
+.project-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  color: #051329;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-smooth);
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: var(--shadow-md);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.project-category {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.project-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.35;
+}
+
+.project-summary {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-tech span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.project-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-card {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-card:hover {
+  background: rgba(56, 189, 248, 0.1);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Timeline Stages --- */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 20px;
+  width: 2px;
+  background-color: var(--border-color);
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 55px;
+  margin-bottom: 3rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 11px;
+  top: 18px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--bg-primary);
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.timeline-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  transition: all var(--transition-smooth);
+}
+
+.timeline-content:hover {
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.timeline-role {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.timeline-company {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.timeline-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.2rem;
+}
+
+.timeline-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.timeline-tasks li i {
+  color: var(--accent-green);
+  margin-right: 0.5rem;
+}
+
+.timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeline-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+/* --- Veille Technologique --- */
+.veille-sujet-card {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(129, 140, 248, 0.05) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.veille-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+.veille-sujet-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.veille-sujet-card p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.sub-heading {
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sub-heading i {
+  color: var(--accent);
+}
+
+.outils-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.outil-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  transition: all var(--transition-smooth);
+}
+
+.outil-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.outil-icon {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.outil-card h5 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.outil-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.article-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-smooth);
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.article-date {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  margin-bottom: 0.6rem;
+}
+
+.article-card h5 {
+  font-size: 1.15rem;
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.article-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.article-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* --- Tableau de Synthèse --- */
+.synthese-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.synthese-info {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.synthese-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.synthese-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.synthese-info p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.synthese-check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.synthese-check-list li i {
+  color: var(--accent-green);
+  margin-right: 0.6rem;
+}
+
+.synthese-download-actions {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Contact --- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 3rem;
+}
+
+.contact-info-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+}
+
+.contact-info-panel h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.contact-info-panel p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.contact-item i {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.contact-label {
+  display: block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.contact-item a,
+.contact-item span {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.contact-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-feedback {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  display: none;
+}
+
+.form-feedback.success {
+  display: block;
+  color: var(--accent-green);
+}
+
+/* --- Modales --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -46%) scale(0.96);
+  width: 90%;
+  max-width: 650px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 10001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-smooth);
+  padding: 2.2rem;
+}
+
+.modal.active,
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 1.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  transition: color var(--transition-fast);
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+}
+
+.modal-body h4 {
+  font-size: 1.05rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+}
+
+.modal-body p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-bottom: 0.8rem;
+}
+
+.modal-body ul {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.modal-body code {
+  font-family: var(--font-mono);
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--accent);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.modal-tags span {
+  font-size: 0.78rem;
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-weight: 600;
+}
+
+/* --- Footer --- */
+.footer {
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  padding: 2.5rem 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-logo {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.footer-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.footer-socials a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* --- Media Queries (Responsive) --- */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .about-grid,
+  .projects-grid,
+  .articles-grid,
+  .outils-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sio-cards {
+    grid-template-columns: 1fr;
+  }
+  .referentiel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path var(--transition-smooth);
+  }
+
+  .nav-menu.open {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .about-grid,
+  .skills-grid,
+  .projects-grid,
+  .outils-grid,
+  .articles-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .synthese-info {
+    flex-direction: column;
+  }
+
+  .timeline::before {
+    left: 10px;
+  }
+
+  .timeline-item {
+    padding-left: 35px;
+  }
+
+  .timeline-dot {
+    left: 1px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-right {
+    flex-direction: column;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- En-tête / Navigation -->
+  <header class="header" id="header">
+    <div class="nav-container">
+      <a href="#hero" class="logo">
+        <span class="logo-name">Luca Ponceblanc<span class="accent">.sisr</span></span>
+      </a>
+
+      <nav class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li><a href="#about" class="nav-link">À propos</a></li>
+          <li><a href="#skills" class="nav-link">Compétences</a></li>
+          <li><a href="#projects" class="nav-link">Projets</a></li>
+          <li><a href="#stages" class="nav-link">Stages</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Changer de thème">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section Accueil / Hero -->
+    <section class="hero" id="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="badge-status">
+            <span class="status-dot"></span>
+            En recherche de stage du 11/01 au 12/02
+          </div>
+          <h1 class="hero-title">
+            Luca Ponceblanc<br>
+            <span class="gradient-text">Systèmes & Réseaux</span>
+          </h1>
+          <p class="hero-subtitle">
+            Étudiant en <strong>BTS SIO option SISR</strong> au Lycée Lamartine à Mâcon. Spécialisé dans l'assistance utilisateurs, la gestion de parc informatique (GLPI), l'administration Windows / Linux et la virtualisation.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fa-solid fa-folder-open"></i> Découvrir mes projets
+            </a>
+            <a href="CV_Luca_Ponceblanc.pdf" class="btn btn-outline" download="CV_Luca_Ponceblanc.pdf">
+              <i class="fa-solid fa-file-arrow-down"></i> Télécharger mon CV
+            </a>
+          </div>
+          <div class="hero-highlights">
+            <div class="highlight-item">
+              <span class="highlight-number">SISR</span>
+              <span class="highlight-label">Option Systèmes & Réseaux</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-number">Lamartine</span>
+              <span class="highlight-label">Lycée à Mâcon</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-number">C1</span>
+              <span class="highlight-label">Niveau d'Anglais</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte synthétique SISR -->
+        <div class="hero-terminal">
+          <div class="terminal-bar">
+            <div class="terminal-buttons">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="terminal-title">Fiche Profil SISR — Luca Ponceblanc</span>
+          </div>
+          <div class="terminal-body">
+            <p class="term-line"><span class="term-prompt">Formation :</span> BTS SIO SISR (2025 - 2027) — Lycée Lamartine, Mâcon</p>
+            <p class="term-line"><span class="term-prompt">Statut :</span> Étudiant en recherche active de stage</p>
+            <p class="term-line"><span class="term-prompt">Compétences de terrain :</span></p>
+            <ul class="term-list">
+              <li><i class="fa-solid fa-check term-ok"></i> Gestion de parc & Support utilisateurs sous GLPI</li>
+              <li><i class="fa-solid fa-check term-ok"></i> Active Directory & Licences Microsoft 365 (Outlook)</li>
+              <li><i class="fa-solid fa-check term-ok"></i> Déploiement & Configuration de postes (Windows 10/11 & Linux Debian)</li>
+              <li><i class="fa-solid fa-check term-ok"></i> Maquettage réseau Cisco Packet Tracer (VLANs, DHCP)</li>
+              <li><i class="fa-solid fa-check term-ok"></i> Virtualisation d'infrastructures (VirtualBox, VMware)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section À Propos -->
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Présentation</span>
+          <h2 class="section-title">À propos de moi</h2>
+          <p class="section-description">
+            Mon parcours scolaire, mes compétences pratiques et mes objectifs professionnels.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <!-- Mon Profil & Parcours -->
+          <div class="about-card">
+            <div class="about-icon">
+              <i class="fa-solid fa-user-gear"></i>
+            </div>
+            <h3>Mon Profil & Parcours</h3>
+            <p>
+              Je m'appelle <strong>Luca Ponceblanc</strong>, né le 3 septembre 2007 à Mâcon. Après l'obtention de mon <strong>Baccalauréat STMG (Option SIG - Systèmes d'Information et de Gestion)</strong>, j'ai tout naturellement poursuivi en <strong>BTS SIO (Services Informatiques aux Organisations)</strong>, option <strong>SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</strong> au <strong>Lycée Lamartine de Mâcon</strong>.
+            </p>
+            <p>
+              Pragmatique et rigoureux, j'ai développé lors de mes stages et travaux pratiques un solide savoir-faire en support informatique, préparation de machines, gestion des utilisateurs et maintenance de parc.
+            </p>
+          </div>
+
+          <!-- Mes Atouts & Objectifs -->
+          <div class="about-card">
+            <div class="about-icon">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3>Mes Atouts & Objectifs</h3>
+            <p>
+              Doté d'un très bon relationnel avec les utilisateurs et d'un niveau d'<strong>Anglais C1</strong>, je sais intervenir efficacement sur les pannes du quotidien tout en documentant clairement mes actions.
+            </p>
+            <p>
+              Je recherche actuellement un <strong>stage professionnel du 11 janvier au 12 février</strong> afin de mettre en pratique mes compétences au sein d'une équipe informatique et d'évoluer vers le métier de <strong>Technicien / Administrateur Systèmes & Réseaux</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Compétences (SISR uniquement) -->
+    <section class="section skills" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Savoir-faire</span>
+          <h2 class="section-title">Mes Compétences Techniques</h2>
+          <p class="section-description">
+            Compétences concrètes appliquées en stage chez Adea Formations et en ateliers au Lycée Lamartine.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Systèmes d'Exploitation -->
+          <div class="skill-group">
+            <div class="skill-group-header">
+              <i class="fa-solid fa-desktop"></i>
+              <h3>Systèmes d'Exploitation</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="fa-brands fa-windows"></i> Windows 10 & Windows 11</span>
+              <span class="skill-tag"><i class="fa-solid fa-server"></i> Windows Server (AD, DNS, DHCP)</span>
+              <span class="skill-tag"><i class="fa-brands fa-linux"></i> Linux Debian (Installation & commandes)</span>
+              <span class="skill-tag"><i class="fa-solid fa-arrow-right-arrow-left"></i> Migration de postes Windows vers Linux</span>
+              <span class="skill-tag"><i class="fa-solid fa-hard-drive"></i> Sauvegarde & restauration de données</span>
+            </div>
+          </div>
+
+          <!-- Réseaux Informatiques -->
+          <div class="skill-group">
+            <div class="skill-group-header">
+              <i class="fa-solid fa-network-wired"></i>
+              <h3>Réseaux Informatiques</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="fa-solid fa-diagram-project"></i> Cisco Packet Tracer (Maquettage)</span>
+              <span class="skill-tag"><i class="fa-solid fa-route"></i> Configuration VLANs & Routage RIP</span>
+              <span class="skill-tag"><i class="fa-solid fa-arrows-split-up-and-left"></i> Adressage IPv4 / IPv6</span>
+              <span class="skill-tag"><i class="fa-solid fa-server"></i> Services DHCP & DNS</span>
+            </div>
+          </div>
+
+          <!-- Virtualisation -->
+          <div class="skill-group">
+            <div class="skill-group-header">
+              <i class="fa-solid fa-cubes"></i>
+              <h3>Virtualisation</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag"><i class="fa-solid fa-server"></i> Proxmox VE</span>
+              <span class="skill-tag"><i class="fa-solid fa-box"></i> Oracle VirtualBox</span>
+              <span class="skill-tag"><i class="fa-solid fa-cloud"></i> VMware Workstation</span>
+              <span class="skill-tag"><i class="fa-solid fa-sliders"></i> Déploiement de machines virtuelles & Snapshots</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Projets & Réalisations -->
+    <section class="section projects" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Réalisations</span>
+          <h2 class="section-title">Mes Projets & Ateliers SISR</h2>
+          <p class="section-description">
+            Projets techniques réalisés au cours de ma formation en BTS SIO au Lycée Lamartine.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Projet 1 : Projet Balladins (1ère année) -->
+          <div class="project-card" data-category="reseaux" style="border: 2px solid var(--accent);">
+            <div class="project-header">
+              <span class="project-category"><i class="fa-solid fa-hotel"></i> Projet 1<sup>ère</sup> Année</span>
+              <span class="project-tag">Balladins</span>
+            </div>
+            <h3 class="project-title">Infrastructure Réseau & Système — Hôtels Balladins</h3>
+            <p class="project-summary">
+              Conception et modélisation de l'infrastructure informatique reliant les différents établissements hôteliers franchisés (ex: Hôtel de Mâcon) au siège central de Paris. Cloisonnement du réseau local de l'hôtel (Wifi clients, caisses, postes administratifs) et accès distant sécurisé vers le siège.
+            </p>
+            <div class="project-tech">
+              <span>Cisco Packet Tracer</span>
+              <span>Architecture Réseau</span>
+              <span>Interconnexion Siège</span>
+              <span>VLANs & Wifi</span>
+            </div>
+            <div class="project-footer">
+              <button class="btn-card" onclick="openModal('balladins-modal')">
+                <i class="fa-solid fa-eye"></i> Voir la fiche du projet
+              </button>
+            </div>
+          </div>
+
+          <!-- Projet 2 : Atelier Professionnel Multi-VMs -->
+          <div class="project-card" data-category="virtualisation">
+            <div class="project-header">
+              <span class="project-category"><i class="fa-solid fa-cubes"></i> Atelier Pro</span>
+              <span class="project-tag">BTS SIO</span>
+            </div>
+            <h3 class="project-title">Déploiement d'une Infrastructure Virtualisée</h3>
+            <p class="project-summary">
+              Mise en place d'un environnement de travail d'entreprise sous VMware et VirtualBox. Déploiement de plusieurs machines virtuelles (Windows Server, Linux Debian et postes clients) avec configuration des liaisons réseau internes et installation des services réseau.
+            </p>
+            <div class="project-tech">
+              <span>VirtualBox</span>
+              <span>VMware</span>
+              <span>Windows Server</span>
+              <span>Linux Debian</span>
+            </div>
+            <div class="project-footer">
+              <button class="btn-card" onclick="openModal('virtualbox-modal')">
+                <i class="fa-solid fa-eye"></i> Voir la fiche du projet
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Stages en Entreprise -->
+    <section class="section stages" id="stages">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Expérience Professionnelle</span>
+          <h2 class="section-title">Mon Stage en Entreprise</h2>
+          <p class="section-description">
+            Immersion professionnelle réalisée dans le cadre de ma formation BTS SIO SISR.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <!-- Stage 1ère année : Adea Formations -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-header">
+                <span class="timeline-role">Stage Support Informatique & Administration Parc</span>
+                <span class="timeline-date"><i class="fa-regular fa-calendar"></i> Juin — Juillet 2026</span>
+              </div>
+              <h4 class="timeline-company"><i class="fa-solid fa-building"></i> Adea Formations — Mâcon</h4>
+              <p class="timeline-desc">
+                Immersion professionnelle au sein du service informatique. Missions principales axées sur le support aux utilisateurs, la maintenance du parc et la gestion administrative des postes.
+              </p>
+              <ul class="timeline-tasks">
+                <li><i class="fa-solid fa-check"></i> <strong>Inventaire & Gestion GLPI :</strong> Recensement physique du parc (postes, écrans, périphériques), mise à jour des fiches d'équipements et vérification des licences installées.</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Support Utilisateurs :</strong> Traitement et résolution des tickets d'assistance (résolution de pannes, dépannage de la messagerie Outlook, réinitialisation de mots de passe).</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Déploiement & Migration de Postes :</strong> Installation de postes sous Windows 10/11 et Linux, sauvegarde des données utilisateurs et intégration des machines au domaine Active Directory.</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Gestion Microsoft 365 :</strong> Création de comptes Active Directory, attribution des licences Microsoft 365 et vérification de la synchronisation.</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Réseau & Procédures :</strong> Reconstitution du schéma réseau de l'entreprise sur Cisco Packet Tracer et rédaction de fiches techniques d'intervention.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span>GLPI</span>
+                <span>Active Directory</span>
+                <span>Microsoft 365</span>
+                <span>Windows & Linux</span>
+                <span>Support Utilisateur</span>
+                <span>Cisco Packet Tracer</span>
+              </div>
+              <div style="margin-top: 1.25rem;">
+                <a href="Stage_ADEA.pdf" target="_blank" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-size: 0.85rem; padding: 0.5rem 1rem;">
+                  <i class="fa-solid fa-file-pdf"></i> Attestation / Bilan de stage (PDF)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Me Joindre</span>
+          <h2 class="section-title">Contact</h2>
+          <p class="section-description">
+            Disponible immédiatement pour un échange ou un entretien de stage.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Coordonnées directes -->
+          <div class="contact-card">
+            <h3>Mes Coordonnées</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+              N'hésitez pas à me contacter par email ou par téléphone pour toute proposition de stage ou information complémentaire.
+            </p>
+
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                  <h4>Email</h4>
+                  <p><a href="mailto:lucapbc3@gmail.com">lucapbc3@gmail.com</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                  <h4>Téléphone</h4>
+                  <p><a href="tel:0762637813">07 62 63 78 13</a></p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div>
+                  <h4>Localisation</h4>
+                  <p>Mâcon (71000), Saône-et-Loire</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                <div>
+                  <h4>Curriculum Vitae</h4>
+                  <p>
+                    <a href="CV_Luca_Ponceblanc.pdf" download="CV_Luca_Ponceblanc.pdf">
+                      <i class="fa-solid fa-download"></i> Télécharger mon CV au format PDF
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulaire de contact rapide -->
+          <div class="contact-form-card">
+            <h3>Envoyer un message</h3>
+            <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label for="name">Votre Nom :</label>
+                <input type="text" id="name" name="name" required placeholder="Ex: Jean Dupont">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Votre Email :</label>
+                <input type="email" id="email" name="email" required placeholder="Ex: contact@entreprise.com">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Votre Message :</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Votre message concernant le stage ou une opportunité..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa-solid fa-paper-plane"></i> Envoyer le message
+              </button>
+
+              <div id="form-feedback" class="form-feedback"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modales Détaillées pour les Projets SISR -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="closeModal()"></div>
+
+  <!-- Modal Projet Balladins -->
+  <div class="modal" id="balladins-modal" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-hotel"></i> Projet Hôtels Balladins (1ère Année)</h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h4>Contexte du projet</h4>
+      <p>
+        Les établissements Balladins sont une chaîne hôtelière en plein développement de franchises en France. Le projet consistait à implanter l'infrastructure informatique (matérielle, réseaux et serveurs) pour relier chaque hôtel franchisé (ex: Hôtel de Mâcon) au siège central situé à Paris.
+      </p>
+      
+      <h4>Missions & Réalisations SISR</h4>
+      <ul>
+        <li><strong>Architecture Réseau :</strong> Schématisation globale de l'interconnexion entre les réseaux locaux des hôtels et le cœur de réseau du siège social.</li>
+        <li><strong>Réseau Local de l'Hôtel :</strong> Conception du réseau interne de l'hôtel intégrant ordinateurs clients, caisses enregistreuses, imprimantes et tablettes tactiles connectées en Wi-Fi.</li>
+        <li><strong>Liaison Sécurisée (VPN) :</strong> Planification de la connexion distante sécurisée entre les hôtels et les serveurs centraux (authentification, stockage de fichiers et bases de données).</li>
+        <li><strong>Zone de Sécurité & Filtrage :</strong> Définition des flux autorisés pour isoler les réservations des internautes des données confidentielles de gestion du groupe.</li>
+      </ul>
+
+      <h4>Compétences BTS SIO validées</h4>
+      <div class="modal-tags">
+        <span>Conception d'infrastructure réseau</span>
+        <span>Interconnexion de sites distants</span>
+        <span>Sécurisation des accès & VLANs</span>
+        <span>Cisco Packet Tracer</span>
+      </div>
+
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="Projet_Balladins.pdf" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+          <i class="fa-solid fa-file-pdf"></i> Consulter le dossier technique complet (PDF)
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal VirtualBox / Proxmox -->
+  <div class="modal" id="virtualbox-modal" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-cubes"></i> Infrastructure Virtualisée Multi-VMs</h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+      <h4>Contexte du projet</h4>
+      <p>Création d'un environnement de laboratoire complet pour simuler une infrastructure d'entreprise réelle sans matériel physique supplémentaire.</p>
+      
+      <h4>Actions & Réalisations</h4>
+      <ul>
+        <li>Installation et configuration de l'hyperviseur (Oracle VirtualBox et VMware Workstation).</li>
+        <li>Déploiement de plusieurs machines virtuelles (Windows Server, Linux Debian, machines clientes).</li>
+        <li>Paramétrage des cartes réseaux virtuelles (Host-Only / Réseau interne) pour isoler les flux de test.</li>
+        <li>Mise en œuvre de snapshots réguliers pour sauvegarder les configurations stables.</li>
+      </ul>
+
+      <h4>Compétences SISR validées</h4>
+      <div class="modal-tags">
+        <span>Virtualisation de serveurs</span>
+        <span>Gestion des cartes réseaux virtuelles</span>
+        <span>Sauvegarde & Snapshots</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pied de page -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <p class="footer-logo">Luca Ponceblanc<span class="accent">.sisr</span></p>
+        <p class="footer-sub">BTS SIO SISR — Lycée Lamartine (Mâcon)</p>
+      </div>
+      <div class="footer-right">
+        <p>&copy; 2026 Luca Ponceblanc. Tous droits réservés.</p>
+        <div class="footer-socials">
+          <a href="#hero" aria-label="Haut de page"><i class="fa-solid fa-arrow-up"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+/**
+ * Portfolio BTS SIO SISR - JavaScript Principal
+ * Auteur : Luca
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initMobileMenu();
+  initProjectFilters();
+  initScrollSpy();
+  initHeaderScroll();
+});
+
+/* ===================================================================
+   1. Gestion du Thème Sombre / Clair (Persistance localStorage)
+   =================================================================== */
+function initTheme() {
+  const themeToggle = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  const icon = themeToggle ? themeToggle.querySelector('i') : null;
+
+  // Récupérer le thème sauvegardé ou par défaut 'dark'
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  html.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme, icon);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme, icon);
+    });
+  }
+}
+
+function updateThemeIcon(theme, icon) {
+  if (!icon) return;
+  if (theme === 'light') {
+    icon.className = 'fa-solid fa-sun';
+  } else {
+    icon.className = 'fa-solid fa-moon';
+  }
+}
+
+/* ===================================================================
+   2. Menu Mobile Responsive
+   =================================================================== */
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-xmark');
+      }
+    });
+
+    // Fermer le menu lors du clic sur un lien
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.add('fa-bars');
+          icon.classList.remove('fa-xmark');
+        }
+      });
+    });
+  }
+}
+
+/* ===================================================================
+   3. Filtrage dynamique des Projets & Labs
+   =================================================================== */
+function initProjectFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  if (filterBtns.length === 0 || projectCards.length === 0) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Activer le bouton sélectionné
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (filterValue === 'all' || cardCategory === filterValue) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.4s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+/* ===================================================================
+   4. Suivi du défilement & Liens Actifs (ScrollSpy)
+   =================================================================== */
+function initScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  });
+}
+
+/* ===================================================================
+   5. Ombre de la barre de navigation au scroll
+   =================================================================== */
+function initHeaderScroll() {
+  const header = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) {
+      header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.25)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+  });
+}
+
+/* ===================================================================
+   6. Gestion des Fenêtres Modales (Détails des Projets)
+   =================================================================== */
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  const backdrop = document.getElementById('modal-backdrop');
+  if (modal && backdrop) {
+    modal.classList.add('active');
+    backdrop.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Bloquer le scroll d'arrière-plan
+  }
+}
+
+function closeModal() {
+  const activeModals = document.querySelectorAll('.modal.active');
+  const backdrop = document.getElementById('modal-backdrop');
+  
+  activeModals.forEach(modal => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+  });
+
+  if (backdrop) {
+    backdrop.classList.remove('active');
+  }
+
+  document.body.style.overflow = ''; // Rétablir le scroll
+}
+
+// Fermeture avec la touche Échap
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+
+/* ===================================================================
+   7. Simulation de Soumission du Formulaire de Contact
+   =================================================================== */
+function handleContactSubmit(event) {
+  event.preventDefault();
+  const feedback = document.getElementById('form-feedback');
+  const form = document.getElementById('contact-form');
+
+  if (feedback && form) {
+    feedback.innerHTML = '<i class="fa-solid fa-circle-check"></i> Merci ! Votre message a bien été envoyé avec succès.';
+    feedback.className = 'form-feedback success';
+    form.reset();
+
+    setTimeout(() => {
+      feedback.style.display = 'none';
+    }, 5000);
+  }
+}
+
+// Animation CSS injectée pour le filtrage
+const styleSheet = document.createElement("style");
+styleSheet.innerText = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+`;
+document.head.appendChild(styleSheet);
+
+  </script>
+</body>
+</html>
+
